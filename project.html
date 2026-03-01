@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kenya Airways - Book a Flight</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div>
+            <h1>Kenya Airways</h1>
+            <p>The Pride of Africa</p>
+        </div>
+
+        <nav>
+            <a href="#">Home</a> |
+            <a href="#">Book</a> |
+            <a href="#">Manage Booking</a> |
+            <a href="#">Check In</a> |
+            <a href="#">Contact</a>
+        </nav>
+        <hr>
+    </header>
+
+
+    <!-- BOOKING SECTION -->
+    <main>
+
+        <section>
+            <h2>Book a Flight</h2>
+
+            <form action="search_flights.php" method="POST">
+
+                <!-- Trip Type -->
+                <fieldset>
+                    <legend>Trip Type</legend>
+                    <input type="radio" name="trip_type" value="oneway" checked> One Way
+                    <input type="radio" name="trip_type" value="roundtrip"> Round Trip
+                    <input type="radio" name="trip_type" value="multicity"> Multi City
+                </fieldset>
+
+                <br>
+
+                <!-- Departure & Destination -->
+                <label>From:</label>
+                <input type="text" name="departure" placeholder="Enter Departure City" required>
+
+                <br><br>
+
+                <label>To:</label>
+                <input type="text" name="destination" placeholder="Enter Destination City" required>
+
+                <br><br>
+
+                <!-- Dates -->
+                <label>Departure Date:</label>
+                <input type="date" name="departure_date" required>
+
+                <br><br>
+
+                <label>Return Date:</label>
+                <input type="date" name="return_date">
+
+                <br><br>
+
+                <!-- Passengers -->
+                <fieldset>
+                    <legend>Passengers</legend>
+
+                    <label>Adults:</label>
+                    <input type="number" name="adults" min="1" value="1">
+
+                    <br><br>
+
+                    <label>Children:</label>
+                    <input type="number" name="children" min="0" value="0">
+
+                    <br><br>
+
+                    <label>Infants:</label>
+                    <input type="number" name="infants" min="0" value="0">
+                </fieldset>
+
+                <br>
+
+                <!-- Class -->
+                <label>Travel Class:</label>
+                <select name="class">
+                    <option value="economy">Economy</option>
+                    <option value="premium">Premium Economy</option>
+                    <option value="business">Business Class</option>
+                    <option value="first">First Class</option>
+                </select>
+
+                <br><br>
+
+                <!-- Submit -->
+                <button type="submit">Search Flights</button>
+
+            </form>
+        </section>
+
+    </main>
+
+    <hr>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2026 Kenya Airways | All Rights Reserved</p>
+        <p>Customer Support | Privacy Policy | Terms & Conditions</p>
+    </footer>
+
+</body>
+</html>

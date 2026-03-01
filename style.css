@@ -1,0 +1,130 @@
+
+
+body {
+    background-color: white;
+}
+
+h1 {
+   /* background-color:red ;
+    border-style: none;
+    border-color: none;
+    border-width: none;
+    border-radius: none;
+    border-right: none; */
+
+    /* text-align: horizontal;
+    vertical-align: auto;
+
+    text-decoration: overline underline;
+    text-decoration: green;
+    text-decoration-style: dotted;
+
+    text-transform: lowercase;
+    text-transform: uppercase; 
+    text - indent: 30px; */
+
+    /* fonts */
+
+    font-family: Arial,Helvetica;
+    font-family: "lucida conse","courler";
+    font-style: italic;
+    font-style: oblique;
+
+    font-weight: bold;
+    font-weight: normal;
+
+    font-size: 4em;
+
+
+
+
+
+}
+.heading {
+    color:blue;
+
+}
+h1.heading{
+    color:blue;
+}
+*{
+    color:blueviolet;
+} 
+
+/* comment in css */
+body {
+    background-color: blueviolet;
+    opacity: 0.6;
+    margin-left:20px;
+    margin-right:20px;
+    margin-top:20px;
+    margin-bottom:20px;
+    background-image:url("") ;
+    background-position: right;
+    
+}
+
+/* margins */
+
+p{
+    margin-left:20px;
+    margin-right:20px;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+/* table */
+table,th,td {
+    border:2px solod;
+    width:50%;
+    border-collapse: collapse;
+}
+th,td{
+    height: 50px;
+    text-align: left;
+    padding: 10px;
+}
+td{
+    text-align: center;
+}
+
+tr:hover{
+    background-color: blue;
+}
+
+/* dropdown menu */
+
+.dropdowbbutton{
+    background-color: blue;
+    color: white;
+    padding: 13px;
+    font-size: 16px;
+    cursor: pointer;
+}
+.dropdown-menu{
+    /* display */
+    position:absolute;
+    background-color: aqua;
+    min-width: 150px;
+}
+
+.dropdown-menu{
+    color: black;
+    passing: 11px 15px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-menu a:hover{
+    background-color: white;
+}
+
+.dropdown:hover .dropdown-menu{
+    display:block
+}
+
+/* attributes selectal in css */
+
+div[class="test"]{
+    color: brown;
+}
+
+
