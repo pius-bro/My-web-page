@@ -369,6 +369,252 @@ function Odd(element){
 
 */
 
+// arrow functions = a concise way to write function expressions 
+//                 good for simple functions
+
+const numbers = [1,2,3,4,5,6];
+const cubes = numbers.map((element) => Math.pow(element,2));
+const Even = numbers.map((element) => element %2 === 0);
+
+console.log(cubes,Even);
+
+// objects --> A collection of related properties and/or method can
+//            represent real world object (people,products,places)
+//            object = {key:value, function()}
+
+const person = {
+    name: "pius",
+    lname: "osiemo",
+    age : 24,
+    sayhello:function(){console.log(`hello mother fucker  ${this.person}`)},
+}
+
+console.log(person.mame);
+person.sayhello();
+
+// this = refrence to the object where This is used
+//       person.name = this.name
+
+// constructors in js = special methods for definig=ng the properties and methods of objects
+
+function Car( make,model,year,color){
+    this.make = make,
+    this.model = model,
+    this.year = year,
+    this.corol = color
+    this.drive = function(){console.log(`You drove ${this.model}`)} // methods
+    
+}
+const car1 = new Car("Ford","Mustang",2024,"red");
+console.log(car1);
+
+// classes =blueprints of objects
+
+class Product{
+    constructor(name,price){
+        this.name = name;
+        this.price = price;
+    }
+    displayProduct(){
+        console.log(`Product:${this.name}`); // methods
+        console.log(`Price:${this.price}`);
+    }
+    calculateTotal(salesTax){
+        return this.price + (this,price * salesTax);
+    }
+}
+const salesTax = 0.04;
+const product = new Product("Shirt",90);
+const product2 = new Product("Shir",90);
+const product3 = new Product("Shirt",90);
+product.displayProduct();
+product2.displayProduct();
+
+const total = product.calculateTotal(salesTax);
+console.log(`Total price:${total.toFixed}`);
+
+// static = keyword that defines methods  that belongs to a class instead of objects
+
+class MathUtil{
+    static PI = 3.14159;
+    static getDiameter(radius){
+        return radius *2
+    }
+    static getCircumFerence(radius){
+        return this.PI *radius;
+    }
+}
+
+console.log(MathUtil.PI);
+console.log(MathUtil.getDiameter(10));
+console.log(MathUtil.getCircumFerence(10));
+
+// inheritence = allows a new class to inherit properties amd methods froman existing class
+
+class Animal{
+    alive= true;
+
+    eat(){
+        console.log(`This ${this.name} is eating`);
+    }
+    sleep(){
+        console.log(`This ${this.name} is sleeping`);
+    }
+}
+class Rabbit extends Animal{
+    name = "rabbit";
+}
+class Fish extends Animal{
+    name = "fish";
+}
+class Hawk extends Animal{
+    name="Hawk";
+}
+
+const rabbit = new Rabbit();
+const fish = new Fish();
+const hawk = new Hawk();
+
+console.log(hawk.alive); // accesing global variable
+hawk.eat(); // inheritance
+hawk.sleep(); // inheritance
+
+// super keyword = enables the subclasses acces properties of a super class through a constructor
+
+class Animal{
+    constructor( name,age){
+        this.name = "name";
+        this.age = 'age';
+
+    }
+}
+class Rabbit extends Animal{
+    constructor(name,age,year){
+        super(name,age);
+        this.year='year';
+
+    }
+}
+class Fish extends Animal{
+    constructor(name,age,year){
+        super(name,age);
+        this.year=
+        year;
+
+    }
+    
+}
+class Hawk extends Animal{
+    constructor(name,age,year){
+        super(name,age);
+        this.year='year';
+
+    }
+    
+}
+const rabb = new Rabbit("nw", 24,"2025")
+console.log(rabb);
+
+// getters = special methods that makes a property readable
+// setters = special methods that amkes a property writable
+
+
+class Rectangle{
+    constructor(width,height){
+        this.width = width;
+        this.heigh = height;
+    }
+    set width(newwidt){
+        if(newwidt>0){
+            this.width = newwidt;
+        }
+        else{
+            console.error("width must be a post number");
+        }
+    }
+    set height(height){
+        if(newHeight>0){
+            this.height = newHeight;
+        }
+        else{
+            console.error("height must be a post number");
+        }
+    }
+    get width(){
+        return this._width;
+
+    }
+    get height(){
+        return this._height;
+    }
+    get area(){
+        return this._width * this._height;
+    }
+}
+const rectangle = new Rectangle(3,4);
+
+console.log(rectangle.width);
+console.log(rectangle.height);
+console.log(rectangle.area);
+
+
+// destructing or unpacking
+
+let a =1;
+let b = 2;
+
+[a,b] = [c,d];
+
+// nested objects = objects inside of other objects.allows you to represents
+
+const Worker ={  // can be made through OOP
+    fname : "Pius",
+    Lname: "Osiemo",
+    isworker: true,
+    hobbies : ["Moivie","football"],
+    address :{
+        street : "33 kiligoris",
+        city: "Nairobi",
+        country : "Kenya"
+    }
+
+}
+console.log(Worker.fname); // you  do the same to others
+console.log(Worker.address.city);
+
+// array of objects
+const fruits =[{ name:"pius",age:"24",course:"computer science"},
+                {name:"osiemo",age:"24",course:"computer science"},
+                {name:"Nim",age:"24",course:"computer science"},
+                {name:"Obita",age:"24",course:"computer science"},
+                {name:"Atley",age:"24",course:"computer science"}];
+
+fruits.push(); // to add elements
+fruits.pop(); // to pop elements from the object
+fruits.slice(); // to slice
+// forEach --> to loop throug
+// map() --> 
+const ftuitNma= fruits.map(fruit=>fruit.name) ;// helps to carry out thr looping
+console.log(ftuitNma);
+
+// filter method
+
+const yellofruit = fruits.filter(fruit=> fruit.color ==="yellow");
+
+// sort method --> used to elements in an array in order
+
+let arr = [1,12,24,12,56,76];
+arr.sort();
+console.log(arr);
+
+
+
+
+
+
+
+
+
 
 
 
