@@ -1,0 +1,62 @@
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(224, 230, 235);
+}
+#myH1{
+    font-size: 4rem;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(14, 13, 12);
+}
+#container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    border: 5px solid;
+    border-radius: 50px;
+    background-color: white;
+}
+#display{
+    font-size: 5rem;
+    font-family: monospace;
+    font-weight: bold;
+    color: rgb(17, 19, 19);
+    text-shadow: 2px 2px 2px hsl(hue, saturation, lightness);
+    margin-bottom: 25px;
+
+}
+#controls{
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 10px 20px;
+    margin: 5px;
+    min-width: 125px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    color: white;
+
+}
+#startBtn{
+   background-color: green;
+   border-radius: 10px;
+}
+#startBtn:hover{
+   background-color: green;
+}
+#stopBtn{
+   background-color: rgb(238, 19, 12);
+   border-radius: 10px;
+}
+#stopBtn:hover{
+   background-color: rgb(241, 13, 13);
+}
+#resetBtn{
+   background-color: rgb(89, 154, 228);
+   border-radius: 10px;
+}
+#resetBtn:hover{
+   background-color: rgb(89, 154, 228);
+}
