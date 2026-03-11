@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Scientific Calculator</title>
+<link rel="stylesheet" href="sciCalc.css">
+</head>
+<body>
+
+<div id="app-container">
+    <div id="calculator">
+
+<input id="display" readonly placeholder="0">
+
+<div id="keys">
+
+<!-- Mode Switch -->
+<button onclick="toggleMode()" id="mode-btn">DEG</button>
+
+<!-- Scientific Functions -->
+<button onclick="sin()">sin</button>
+<button onclick="cos()">cos</button>
+<button onclick="tan()">tan</button>
+<button onclick="sqrt()">√</button>
+<button onclick="square()">x²</button>
+<button onclick="power()">xʸ</button>
+<button onclick="log()">log</button>
+<button onclick="ln()">ln</button>
+<button onclick="factorial()">n!</button>
+<button onclick="matrixMode()">Matrix</button>
+
+<!-- Parentheses -->
+<button onclick="appendToDisplay('(')">(</button>
+<button onclick="appendToDisplay(')')">)</button>
+
+<!-- Standard Operators -->
+<button onclick="memoryRecall()">MR</button>
+<button onclick="memoryClear()">MC</button>
+<button onclick="appendToDisplay('*')" class="operator-btn">*</button>
+<button onclick="appendToDisplay('/')" class="operator-btn">/</button>
+
+<!-- Numbers -->
+<button onclick="appendToDisplay('7')">7</button>
+<button onclick="appendToDisplay('8')">8</button>
+<button onclick="appendToDisplay('9')">9</button>
+<button onclick="appendToDisplay('+')" class="operator-btn">+</button>
+<button onclick="appendToDisplay('-')" class="operator-btn">-</button>
+<button onclick="appendToDisplay('4')">4</button>
+<button onclick="appendToDisplay('5')">5</button>
+<button onclick="appendToDisplay('6')">6</button>
+<button onclick="clearDisplay()" class="operator-btn">C</button>
+<button onclick="appendToDisplay('1')">1</button>
+<button onclick="appendToDisplay('2')">2</button>
+<button onclick="appendToDisplay('3')">3</button>
+<button onclick="appendToDisplay('0')">0</button>
+<button onclick="appendToDisplay('.')">.</button>
+
+<!-- Control Buttons -->
+<button onclick="calculate()">=</button>
+<button onclick="backspace()">DEL</button>
+
+<!-- Memory Buttons -->
+<button onclick="memoryAdd()">M+</button>
+<button onclick="memorySubtract()">M-</button>
+
+<!-- Extra placeholders -->
+<button onclick="statisticsMode()">Stats</button>
+<button onclick="pi()">π</button>
+
+
+</div>
+
+</div>
+</div>
+
+<script src="calculator.js"></script>
+</body>
+</html>
