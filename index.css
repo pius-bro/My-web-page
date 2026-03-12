@@ -311,7 +311,7 @@ form input,form textarea{
     background: #fff;
     padding: 15px;
     margin: 15px 0;
-    color: #fff;
+    color: black;
     font-size: 18px;
     border-radius: 6px;
 }
@@ -401,5 +401,6 @@ nav.fas{
     }
 
 }
+
 
 
