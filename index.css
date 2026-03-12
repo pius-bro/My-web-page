@@ -340,7 +340,7 @@ nav.fas{
 }
 @media only screen and (max-width: 600px){
     #header{
-        background-image: url(.vscode/w2.jpg);
+        background-image: url(w2.jpg);
     }
     .header-text{
         margin-top: 100%;
@@ -401,4 +401,5 @@ nav.fas{
     }
 
 }
+
 
