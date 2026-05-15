@@ -341,7 +341,7 @@ nav.fas{
 }
 @media only screen and (max-width: 480px){
     #header{
-        background-image: url(.vscode/w2.jpg);
+        background-image: url(w2.jpg);
     }
     .header-text{
         margin-top: 100%;
@@ -354,6 +354,7 @@ nav.fas{
     display: block;
     font-size: 25px;
         color: white;
+        cursor: pointer
 
     }
     nav ul{
