@@ -303,6 +303,7 @@ nav ul li a:hover::after{
 .contact-rigth form{
     width: 100%;
     flex-direction: row;
+    color: black;
 }
 form input,form textarea{
     width: 100%;
