@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pius airline online booking</title>
+    <link rel="stylesheet" href="air.css">
+    <link rel="stylesheet" href="httpscdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+    <header class="container">
+        <img src="logo.png" class="logo">
+        <nav>
+            <ul id="sidemenu">
+                <i class="fas fa-times" id="close-icon" onclick="closemenu()" ></i>
+                <li><i class="fas fa-suitcase-rolling"></i> KQ HOLIDAYS</li>
+                <li><i class="fas fa-info-circle"></i> ABOUT US</li>
+                <li><i class="fas fa-phone"></i>0700000002</li>
+                <li><i class="fas fa-globe"></i> KENYA</li>
+                <li><a href="help.html">Help</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Explore</a></li>
+                <li><a href="#">Plan</a></li>
+                <li><a href="Booking.html">Book & Manage</a></li>
+            </ul>
+            <i class="fas fa-bars" id="menu-icon" onclick="openmenu()"></i>
+        </nav>
+    </header>
+    <div class="hero">
+        <img src="hero.jpeg">
+        <div class="hero-content">
+            <form class="booking-widget">
+                <div class="form-group" id ="form-group">
+                    <label for="tripeType">tripType</label>
+                    <select id="tripType" name="fromAirport">
+                        <option value="oneway">oneway</option>
+                        <option value="return">Return</option>
+                        <option value="multicity">Multi-city</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="fromAirport">From</label>
+                    <select id="fromAirport" name="fromAirport">
+                        <option value="London">London</option>
+                        <option value="Berlin">Berlin</option>
+                        <option value="Tokyo">Tokyo</option>
+                    </select>
+                </div>
+                <div class="form-group" >
+                    <label for="toDestination">To</label>
+                    <select id="toDestination" name="toDestination">
+                        <option value="Lagos">Lagos</option>
+                        <option value="Pretoria">Pretoria</option>
+                        <option value="Newyork">Newyork</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Depature">Departure Date</label>
+                    <input type="date" id="departureDate" name="departureDate">
+                </div>
+                <div class="form-group">
+                    <label for="returnDate">returnDate</label>
+                    <input type="date" id="returnDate" name="returnDate">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Search Flights</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="words">
+        <h1>Book a Flight</h1>
+        <p>Search for Kenya Airways flights and book online.Fly to 50+ destinations<br>across the world with KQ and enjoy a World-Class Travel Experience <br> with African Hospitality.</p>
+    </div>
+    <div class="instructions">
+        <div class="sub-instructions">
+            <h1><span class="dash">-</span>How to book online?</h1>
+            <ul>
+                <li>Enter the airport or city where you are flying from and flying <br> to on the booking widget above</li>
+                <br>
+                <li>Select the trip type of your flight i.e. One way, Return or Multi-city trip</li>
+                <br>
+                <li>Enter your dates of travel, cabin class and number of <br> passengers</li>
+                <br>
+                <li>Click the Search Flights button to continue with the booking <br> process and book a flight ticket that suits your travel plans</li>
+                <br>
+                <li> Feel free to compare the best fares on our price histogram</li>
+                <br>
+                <li><a href="terms.html">Terms and Conditions Apply</a></li>
+            </ul>
+
+        </div>
+        <div class="image">
+            <img src="how.jpeg">
+
+        </div>
+    </div>
+    <div class="deals">
+        <h2 style="font-size: 50px;">
+            Deals from <span>
+                <select name="Nairobi" id="Nairobi">
+                    <option value="london">London</option>
+                    <option value="dubai">Dubai</option>
+                    <option value="newyork">New York</option>
+                    <option value="cape-town">Cape Town </option>
+                    <option value="paris">Paris</option>
+                </select>
+            </span>
+       <img src="logo.png" class="dl">     
+    </div>
+    <div class="deal-cards">
+        <div class="card">
+            <img src="london.jpeg" alt="London Deal">
+            <h3>Nairobi to London</h3>
+            <p>From $650</p>
+            <a href="details.html" class="view-details">View Details</a>
+        </div>
+        <div class="card">
+            <img src="dubai.jpeg" alt="Dubai Deal">
+            <h3>Nairobi to Dubai</h3>
+            <p>From $420</p>
+            <a href="details.html" class="view-details">View Details</a>
+        </div>
+        <div class="card">
+            <img src="newyork.jpeg" alt="New York Deal">
+            <h3>Nairobi to New York</h3>
+            <p>From $980</p>
+            <a href="details.html" class="view-details">View Details</a>
+        </div>
+        <div class="card">
+            <img src="kisumu.jpeg" alt="New York Deal">
+            <h3>Nairobi to Kisumu</h3>
+            <p>From $100</p>
+            <a href="details.html" class="view-details">View Details</a>
+        </div>
+        <div class="card">
+            <img src="momb.jpeg" alt="New York Deal">
+            <h3>Nairobi to Mombasa</h3>
+            <p>From $150</p>
+            <a href="details.html" class="view-details">View Details</a>
+        </div>
+        <div class="card">
+            <img src="dar el.jpeg" alt="New York Deal">
+            <h3>Nairobi to Dar el saalam</h3>
+            <p>From $900</p>
+            <a href="details.html" class="view-details">View Details</a>
+        </div>
+        <div class="card">
+            <img src="cape.jpeg" alt="New York Deal">
+            <h3>Nairobi to Capetown</h3>
+            <p>From $1000</p>
+            <a href="details.html" class="view-details">View Details</a>
+        </div>
+        <div class="card">
+            <img src="hongkong.jpeg" alt="New York Deal">
+            <h3>Nairobi to Hong Kong</h3>
+            <p>From $1000</p>
+            <a href="details.html" class="view-details">View Details</a>
+    </div>
+    <div class="how">
+    <h1><span class="dash">-</span>How to Book a Ticket on Our Website.</h1>
+
+    <div class="video">
+
+        <video src="kenya.mp4" controls autoplay muted loop></video>
+         <a href="https://youtube/4voUPPgyUnM"
+           target="_self"
+           class="video-overlay">
+           ▶ 
+        </a>
+        <h2 style="color: black;">Booking a ticket on our website is now simple and seemless</h2>
+    </div>
+</div>
+<div class="plan"><span class="dash">-</span>Plan Your Trip</div>
+<div class="plan-trip">
+    <div class="trip-left">
+        <img src="discover.jpeg" alt="Discover Destinations">
+        <p>Discover Where We Fly →</p>
+    </div>
+    <div class="trip-right">
+        <div class="special">
+            <a href="special-care.html">
+                <img src="special.jpeg" alt="Special Care">
+                <p>Special Care</p>
+            </a>
+        </div>
+        <div class="baggged">
+            <a href="Bagged.html">
+                <img src="baggage.jpeg" alt="Baggage Information">
+                <p>Baggage</p>
+            </a>
+
+        </div>
+        <div class="passport">
+            <a href="Travelling requirements.html">
+            <img src="passport.jpeg" alt="Passport Requirements">
+            <p>Travelling requirements</p>
+            </a>
+
+        </div>
+    </div>
+</div>
+<div class="offers">
+    <div class="air-hostess">
+        <img src="hostess.jpeg" alt="Latest Offers">
+    </div>
+    <div class="form">
+        <h2>Get the Latest Offers</h2>
+
+        <p>
+            Subscribe and be the first to receive news and exclusive offers.
+        </p>
+
+        <form class="subscribe-form">
+
+        <input 
+            type="email" 
+                placeholder="Enter your email address" 
+                required
+        >
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="consent">
+            <label for="consent">
+                I would like to receive news and offers from Kenya Airways
+            </label>
+        </div>
+
+        <button type="submit">Subscribe</button>
+
+        </form>
+
+    </div>
+</div>
+<footer>
+    <div class="footer-links">
+        <div>
+            <h4>About Kenya Airways</h4>
+            <p><a href="#">About us</a></p>
+            <p><a href="#">Awards</a></p>
+            <p><a href="#">Careers</a></p>
+            <p><a href="#">Our Partners</a></p>
+            <p><a href="#">Press Releases</a></p>
+            <p><a href="#">Sustainability</a></p>
+        </div>
+        <div>
+            <h4>KQ Group Brands</h4>
+            <p><a href="#">KQ Cargo</a></p>
+            <p><a href="#">KQ Pride Centre</a></p>
+            <p><a href="#">Fahari Aviation</a></p>
+            <p><a href="#">JamboJet</a></p>
+            <p><a href="#">Msafiri Magazine</a></p>
+        </div>
+        <div>
+            <h4>Our Destinations</h4>
+            <p><a href="#">Route Map</a></p>
+            <p><a href="#">Africa</a></p>
+            <p><a href="#">Asia</a></p>
+            <p><a href="#">America</a></p>
+            <p><a href="#">Europe</a></p>
+            <p><a href="#">Middle East</a></p>
+        </div>
+        <div>
+            <h4>Help</h4>
+            <p><a href="#">Feedback/Complaint</a></p>
+            <p><a href="#">Contact us</a></p>
+            <p><a href="#">Name Change</a></p>
+            <p><a href="#">Travel Requirements</a></p>
+            <p><a href="#">Special Assistance</a></p>
+            <p><a href="#">FAQs</a></p>
+            <p><a href="#">KQ eSIM Safari Data</a></p>
+        </div>
+        <div>
+            <h4>Useful Links</h4>
+            <p><a href="#">NDC Trade Portal</a></p>
+            <p><a href="#">ADM Trade Portal</a></p>
+            <p><a href="#">Group Booking</a></p>
+            <p><a href="#">Corporate Travel</a></p>
+            <p><a href="#">Affiliate Program</a></p>
+            <p><a href="#">Loyalty Program</a></p>
+        </div>
+        <div>
+            <h4>Popular Destinations</h4>
+            <p><a href="#">Nairobi</a></p>
+            <p><a href="#">Mombasa</a></p>
+            <p><a href="#">London Gatwick</a></p>
+            <p><a href="#">Cape Town</a></p>
+            <p><a href="#">New York</a></p>
+        </div>
+        <div>
+            <h4>Manage</h4>
+            <p><a href="#">Change Booking</a></p>
+            <p><a href="#">Check-in</a></p>
+            <p><a href="#">Refund Form</a></p>
+            <p><a href="#">Upgrade Flight</a></p>
+            <p><a href="#">Delay and Cancellations</a></p>
+        </div>
+    </div>
+
+    <!-- Terms and Copyright -->
+    <div class="footer-bottom">
+        <p class="terms">
+            <a href="terms.html">Terms and Conditions</a>
+        </p>
+        <p class="copyright">
+            © 2026 Kenya Airways Project Version
+        </p>
+    </div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+*{
+    margin: o;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    font-weight: bold;
+    font-family: sans-serif;
+    color: grey;
+    background-color: aliceblue;
+}
+form{
+    display:flex;
+    flex-direction: column;
+    gap:15px;
+    width: 300px;
+}
+.input-boooking{
+    padding: 0 15px;
+    margin: 10px 20px;
+    border-radius: 10px;
+    height: auto;
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+

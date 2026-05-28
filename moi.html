@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenya Airways Online Booking</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --kq-dark: #00313C;
+            --kq-teal: #006272;
+            --kq-red: #CC0000;
+            --kq-gold: #E8A020;
+            --kq-light: #F4F8F9;
+            --kq-white: #ffffff;
+            --kq-gray: #6B7280;
+            --kq-border: #D1E4E8;
+            --shadow: 0 4px 24px rgba(0,49,60,0.10);
+            --radius: 12px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Georgia', serif; background: var(--kq-light); color: var(--kq-dark); }
+
+        /* HEADER */
+        header {
+            background: var(--kq-dark);
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 40px; height: 64px;
+            position: sticky; top: 0; z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+        .logo { height: 44px; display: flex; align-items: center; color: #fff; font-weight: bold; font-family: 'Arial'; font-size: 20px;}
+        nav ul { display: flex; list-style: none; gap: 6px; align-items: center; }
+        nav ul li {
+            color: #CBD5E1; font-size: 13px; padding: 6px 10px;
+            cursor: pointer; border-radius: 6px;
+            transition: background 0.2s, color 0.2s;
+            font-family: 'Arial', sans-serif; letter-spacing: 0.02em;
+        }
+        nav ul li:hover { background: rgba(255,255,255,0.1); color: #fff; }
+        nav ul li a { color: inherit; text-decoration: none; }
+        nav ul li i { margin-right: 5px; font-size: 11px; }
+        #menu-icon { display: none; color: #fff; font-size: 22px; cursor: pointer; }
+        #close-icon { display: none; }
+
+        /* HERO */
+        .hero { position: relative; height: 520px; overflow: hidden; }
+        .hero img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.45); }
+        .hero-content {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%; max-width: 1000px;
+        }
+        .hero-headline { text-align: center; color: #fff; margin-bottom: 24px; }
+        .hero-headline h1 { font-size: 42px; font-weight: 700; text-shadow: 0 2px 16px rgba(0,0,0,0.5); }
+        .hero-headline p { font-size: 16px; color: rgba(255,255,255,0.85); margin-top: 6px; font-family: 'Arial', sans-serif; }
+
+        /* BOOKING WIDGET */
+        .booking-widget {
+            background: rgba(255,255,255,0.97); border-radius: 16px;
+            padding: 24px 28px; box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+        }
+        .widget-tabs {
+            display: flex; gap: 6px; margin-bottom: 20px;
+            background: var(--kq-light); border-radius: 8px; padding: 4px;
+            max-width: 320px;
+        }
+        .widget-tab {
+            flex: 1; padding: 9px; border: none; background: transparent;
+            border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;
+            color: var(--kq-gray); font-family: 'Arial', sans-serif; transition: all 0.2s;
+        }
+        .widget-tab.active { background: var(--kq-dark); color: #fff; }
+        .widget-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr) auto;
+            gap: 12px; align-items: end;
+        }
+        .form-group label {
+            display: block; font-size: 11px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 0.08em;
+            color: var(--kq-teal); margin-bottom: 6px; font-family: 'Arial', sans-serif;
+        }
+        .form-group select, .form-group input {
+            width: 100%; padding: 10px 12px;
+            border: 1.5px solid var(--kq-border); border-radius: 8px;
+            font-size: 14px; color: var(--kq-dark); background: #fff;
+            outline: none; transition: border-color 0.2s; font-family: 'Arial', sans-serif;
+        }
+        .form-group select:focus, .form-group input:focus { border-color: var(--kq-teal); }
+        .btn-search {
+            background: var(--kq-red); color: #fff; border: none;
+            padding: 11px 28px; border-radius: 8px; font-size: 14px;
+            font-weight: 700; cursor: pointer; white-space: nowrap;
+            height: 41px; transition: background 0.2s; font-family: 'Arial', sans-serif;
+        }
+        .btn-search:hover { background: #a80000; }
+
+        /* SECTIONS */
+        .section { max-width: 1200px; margin: 0 auto; padding: 60px 32px; }
+        .section-title { font-size: 30px; font-weight: 700; color: var(--kq-dark); margin-bottom: 8px; }
+        .section-title span.accent { color: var(--kq-red); }
+        .section-subtitle { color: var(--kq-gray); font-size: 15px; margin-bottom: 36px; font-family: 'Arial', sans-serif; }
+
+        /* SEAT CLASSES */
+        .seat-classes-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-bottom: 48px; }
+        .class-card {
+            border-radius: var(--radius); padding: 28px 24px;
+            box-shadow: var(--shadow); transition: transform 0.2s; cursor: pointer;
+            display: flex; flex-direction: column; justify-content: space-between;
+        }
+        .class-card:hover { transform: translateY(-4px); }
+        .class-card.exec { background: linear-gradient(135deg,#3B0764,#7C3AED); color:#fff; }
+        .class-card.mid  { background: linear-gradient(135deg,#0C4A6E,#0369A1); color:#fff; }
+        .class-card.low  { background: linear-gradient(135deg,#064E3B,#059669); color:#fff; }
+        .class-badge {
+            display: inline-block; background: rgba(255,255,255,0.2);
+            padding: 3px 10px; border-radius: 20px; font-size: 11px;
+            font-weight: 700; letter-spacing: 0.1em; margin-bottom: 12px; font-family: 'Arial', sans-serif; align-self: flex-start;
+        }
+        .class-card h3 { font-size: 22px; margin-bottom: 6px; }
+        .class-card .class-desc { font-size: 13px; opacity: 0.85; margin-bottom: 18px; font-family: 'Arial', sans-serif; }
+        .seat-bar-label { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 5px; font-family: 'Arial', sans-serif; opacity: 0.9; }
+        .seat-bar { height: 8px; background: rgba(255,255,255,0.25); border-radius: 4px; overflow: hidden; margin-bottom: 10px; }
+        .seat-bar-fill { height: 100%; background: rgba(255,255,255,0.8); border-radius: 4px; }
+        .seat-status { margin-top: 4px; font-size: 12px; font-family: 'Arial', sans-serif; border-radius: 6px; padding: 8px 12px; }
+        .seat-status.full { background: rgba(255,80,80,0.25); border: 1px solid rgba(255,80,80,0.4); }
+        .seat-status.available { background: rgba(255,255,255,0.15); }
+        .class-features { list-style: none; margin-top: 16px; flex-grow: 1; }
+        .class-features li { font-size: 12px; padding: 5px 0; font-family: 'Arial', sans-serif; opacity: 0.9; }
+        .class-features li i { margin-right: 6px; font-size: 10px; }
+        .btn-book-class {
+            margin-top: 18px; width: 100%; padding: 10px;
+            background: rgba(255,255,255,0.2); border: 1.5px solid rgba(255,255,255,0.5);
+            border-radius: 8px; color: #fff; font-weight: 700; font-size: 13px;
+            cursor: pointer; font-family: 'Arial', sans-serif; transition: background 0.2s;
+        }
+        .btn-book-class:hover { background: rgba(255,255,255,0.35); }
+
+        /* FLIGHT RESULTS CONTAINER */
+        .flight-results-section { display: none; margin-top: 20px; }
+        .flight-results-section.show { display: block; }
+
+        /* MANAGE SECTION */
+        .manage-section { background: var(--kq-white); border-radius: 16px; box-shadow: var(--shadow); overflow: hidden; }
+        .manage-tabs { display: flex; background: var(--kq-dark); flex-wrap: wrap; }
+        .manage-tab {
+            flex: 1; padding: 16px 10px; text-align: center;
+            color: rgba(255,255,255,0.6); cursor: pointer; font-size: 13px;
+            font-weight: 600; font-family: 'Arial', sans-serif;
+            border-bottom: 3px solid transparent; transition: all 0.2s; min-width: 100px;
+        }
+        .manage-tab.active { color: var(--kq-gold); border-bottom-color: var(--kq-gold); background: rgba(255,255,255,0.05); }
+        .manage-tab i { display: block; font-size: 18px; margin-bottom: 4px; }
+        .manage-panel { display: none; padding: 36px; }
+        .manage-panel.active { display: block; }
+        .manage-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+        .manage-form-grid .full { grid-column: 1 / -1; }
+        
+        .input-field {
+            width: 100%; padding: 11px 14px;
+            border: 1.5px solid var(--kq-border); border-radius: 8px;
+            font-size: 14px; color: var(--kq-dark); outline: none;
+            font-family: 'Arial', sans-serif; transition: border-color 0.2s;
+        }
+        .input-field:focus { border-color: var(--kq-teal); }
+        .input-label {
+            display: block; font-size: 12px; font-weight: 700;
+            color: var(--kq-teal); text-transform: uppercase;
+            letter-spacing: 0.07em; margin-bottom: 6px; font-family: 'Arial', sans-serif;
+        }
+        .btn-primary {
+            background: var(--kq-dark); color: #fff; border: none;
+            padding: 12px 32px; border-radius: 8px; font-size: 14px;
+            font-weight: 700; cursor: pointer; font-family: 'Arial', sans-serif;
+            transition: background 0.2s; margin-right: 10px;
+        }
+        .btn-primary:hover { background: var(--kq-teal); }
+
+        /* RESULT TABLE */
+        .result-box { margin-top: 20px; border-radius: 10px; overflow: hidden; border: 1.5px solid var(--kq-border); }
+        .result-box table { width: 100%; border-collapse: collapse; }
+        .result-box th { background: var(--kq-dark); color: #fff; padding: 12px 16px; text-align: left; font-size: 12px; font-weight: 700; font-family: 'Arial', sans-serif; }
+        .result-box td { padding: 12px 16px; border-bottom: 1px solid var(--kq-border); font-size: 13px; font-family: 'Arial', sans-serif; }
+        .result-box tr:last-child td { border-bottom: none; }
+        .result-box tr:nth-child(even) td { background: #F8FBFC; }
+        .status-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; }
+        .status-confirmed { background: #DCFCE7; color: #166534; }
+
+        /* TOAST */
+        .toast {
+            position: fixed; bottom: 30px; right: 30px;
+            background: var(--kq-dark); color: #fff;
+            padding: 14px 22px; border-radius: 10px; font-size: 14px;
+            font-family: 'Arial', sans-serif; box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            transform: translateY(80px); opacity: 0; transition: all 0.3s ease; z-index: 9999;
+            pointer-events: none;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.success { border-left: 4px solid #22C55E; }
+        .toast.info { border-left: 4px solid var(--kq-gold); }
+
+        /* USABILITY BANNER */
+        .usability-banner {
+            background: linear-gradient(90deg, var(--kq-teal), var(--kq-dark));
+            color: #fff; padding: 16px 32px; display: flex; align-items: center; gap: 16px;
+            font-family: 'Arial', sans-serif; font-size: 14px;
+        }
+        .usability-banner i { font-size: 20px; color: var(--kq-gold); }
+        .btn-eval {
+            margin-left: auto; background: var(--kq-gold); color: var(--kq-dark);
+            border: none; padding: 8px 20px; border-radius: 7px;
+            font-weight: 700; cursor: pointer; font-size: 13px; font-family: 'Arial', sans-serif;
+        }
+
+        /* MODAL */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,49,60,0.55); z-index: 3000; align-items: center; justify-content: center; }
+        .modal-overlay.open { display: flex; }
+        .modal { background: #fff; border-radius: 16px; padding: 36px; max-width: 480px; width: 90%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .modal h3 { font-size: 20px; margin-bottom: 12px; }
+        .modal p  { font-size: 14px; color: var(--kq-gray); margin-bottom: 20px; font-family: 'Arial', sans-serif; }
+        .rating-row { display: flex; gap: 8px; margin-bottom: 20px; }
+        .star-btn { font-size: 28px; background: none; border: none; cursor: pointer; color: #D1D5DB; transition: color 0.15s; }
+        .star-btn.lit { color: var(--kq-gold); }
+        .modal textarea { width: 100%; height: 100px; border: 1.5px solid var(--kq-border); border-radius: 8px; padding: 10px 14px; font-size: 13px; font-family: 'Arial', sans-serif; resize: none; outline: none; margin-bottom: 16px; }
+        .modal-actions { display: flex; gap: 10px; justify-content: flex-end; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .widget-row { grid-template-columns: 1fr; }
+            .seat-classes-grid { grid-template-columns: 1fr; }
+            nav ul { display: none; flex-direction: column; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--kq-dark); z-index: 2000; padding: 60px 30px; gap: 4px; }
+            nav ul.open { display: flex; }
+            #menu-icon { display: block; }
+            #close-icon { display: block !important; position: absolute; top: 20px; right: 24px; font-size: 24px; color: #fff; cursor: pointer; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">🇰🇪 KENYA AIRWAYS</div>
+    <nav>
+        <ul id="sidemenu">
+            <i class="fas fa-times" id="close-icon" onclick="closemenu()"></i>
+            <li><i class="fas fa-suitcase-rolling"></i> KQ HOLIDAYS</li>
+            <li><i class="fas fa-info-circle"></i> ABOUT US</li>
+            <li><i class="fas fa-phone"></i> 0700000002</li>
+            <li><i class="fas fa-globe"></i> KENYA</li>
+        </ul>
+        <i class="fas fa-bars" id="menu-icon" onclick="openmenu()"></i>
+    </nav>
+</header>
+
+<div class="usability-banner">
+    <i class="fas fa-star-half-alt"></i>
+    <div>
+        <strong>Usability Evaluation</strong><br>
+        Help us improve — rate your booking experience
+    </div>
+    <button class="btn-eval" onclick="openEvalModal()">Take Survey</button>
+</div>
+
+<div class="hero">
+    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1200&q=80" alt="Kenya Airways Aircraft">
+    <div class="hero-content">
+        <div class="hero-headline">
+            <h1>Fly with African Hospitality</h1>
+            <p>50+ destinations worldwide — Book your journey in seconds</p>
+        </div>
+        <div class="booking-widget">
+            <div class="widget-tabs">
+                <button class="widget-tab active" onclick="setTrip(this,'oneway')">One Way</button>
+                <button class="widget-tab" onclick="setTrip(this,'return')">Return</button>
+            </div>
+            <div class="widget-row">
+                <div class="form-group">
+                    <label>From</label>
+                    <select id="fromAirport">
+                        <option value="NBO">Nairobi (NBO)</option>
+                        <option value="MBA">Mombasa (MBA)</option>
+                        <option value="LHR">London (LHR)</option>
+                        <option value="DXB">Dubai (DXB)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>To</label>
+                    <select id="toDestination">
+                        <option value="LHR">London (LHR)</option>
+                        <option value="JFK">New York (JFK)</option>
+                        <option value="DXB">Dubai (DXB)</option>
+                        <option value="MBA">Mombasa (MBA)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Cabin Class</label>
+                    <select id="cabinClass">
+                        <option value="A">Class A — Executive</option>
+                        <option value="B">Class B — Premium Middle</option>
+                        <option value="C">Class C — Economy</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Departure</label>
+                    <input type="date" id="departureDate">
+                </div>
+                <div class="form-group" id="returnGroup" style="display:none;">
+                    <label>Return</label>
+                    <input type="date" id="returnDate">
+                </div>
+                <div class="form-group">
+                    <button class="btn-search" onclick="searchFlights()">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <h2 class="section-title">Choose Your <span class="accent">Cabin Class</span></h2>
+    <p class="section-subtitle">Book across our segments — real-time seat availability shown below.</p>
+    <div class="seat-classes-grid">
+        <div class="class-card exec" onclick="selectClass('A')">
+            <div>
+                <span class="class-badge">CLASS A</span>
+                <h3>Executive</h3>
+                <p class="class-desc">Premium comfort, lie-flat seats, gourmet dining &amp; priority boarding.</p>
+                <div class="seat-bar-label"><span>Seats Available</span><span>12 / 40</span></div>
+                <div class="seat-bar"><div class="seat-bar-fill" style="width:30%"></div></div>
+                <div class="seat-status available"><i class="fas fa-check-circle"></i> Seats available — book now</div>
+            </div>
+            <ul class="class-features">
+                <li><i class="fas fa-utensils"></i> Gourmet multi-course meals</li>
+                <li><i class="fas fa-bed"></i> Lie-flat bed seat</li>
+                <li><i class="fas fa-wifi"></i> Complimentary Wi-Fi</li>
+            </ul>
+            <button class="btn-book-class">Book Executive</button>
+        </div>
+
+        <div class="class-card mid" onclick="selectClass('B')">
+            <div>
+                <span class="class-badge">CLASS B</span>
+                <h3>Premium Middle</h3>
+                <p class="class-desc">Extra legroom, enhanced meals &amp; lounge access included.</p>
+                <div class="seat-bar-label"><span>Seats Available</span><span>0 / 80</span></div>
+                <div class="seat-bar"><div class="seat-bar-fill" style="width:100%"></div></div>
+                <div class="seat-status full"><i class="fas fa-exclamation-triangle"></i> <strong>Full —</strong> Next: Tue 27 May, 10:30 AM</div>
+            </div>
+            <ul class="class-features">
+                <li><i class="fas fa-chair"></i> Extra legroom seats</li>
+                <li><i class="fas fa-glass-cheers"></i> Complimentary beverages</li>
+                <li><i class="fas fa-suitcase"></i> 30kg baggage allowance</li>
+            </ul>
+            <button class="btn-book-class" onclick="event.stopPropagation();showToast('Next available Premium Class flight details updated.','info')">Check Next Flight</button>
+        </div>
+
+        <div class="class-card low" onclick="selectClass('C')">
+            <div>
+                <span class="class-badge">CLASS C</span>
+                <h3>Economy</h3>
+                <p class="class-desc">Great value, friendly service, reliable travel with dynamic seating options.</p>
+                <div class="seat-bar-label"><span>Seats Available</span><span>45 / 150</span></div>
+                <div class="seat-bar"><div class="seat-bar-fill" style="width:70%"></div></div>
+                <div class="seat-status available"><i class="fas fa-check-circle"></i> Best price guaranteed</div>
+            </div>
+            <ul class="class-features">
+                <li><i class="fas fa-tv"></i> Standard on-board entertainment</li>
+                <li><i class="fas fa-hot-tub"></i> Warm African meals</li>
+                <li><i class="fas fa-suitcase"></i> 23kg standard allowance</li>
+            </ul>
+            <button class="btn-book-class">Book Economy</button>
+        </div>
+    </div>
+
+    <div class="flight-results-section" id="resultsSection">
+        <div class="manage-section">
+            <div class="manage-tabs">
+                <div class="manage-tab active"><i class="fas fa-plane-departure"></i> Available Flights</div>
+            </div>
+            <div class="manage-panel active">
+                <div class="result-box">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Flight No</th>
+                                <th>Route</th>
+                                <th>Departure Time</th>
+                                <th>Cabin Class</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="flightsTableBody">
+                            </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<div class="modal-overlay" id="evalModal">
+    <div class="modal">
+        <h3>Rate Your Experience</h3>
+        <p>Your feedback shapes the pride of Africa's digital infrastructure.</p>
+        <div class="rating-row">
+            <button class="star-btn" onclick="rateStar(1)"><i class="fas fa-star"></i></button>
+            <button class="star-btn" onclick="rateStar(2)"><i class="fas fa-star"></i></button>
+            <button class="star-btn" onclick="rateStar(3)"><i class="fas fa-star"></i></button>
+            <button class="star-btn" onclick="rateStar(4)"><i class="fas fa-star"></i></button>
+            <button class="star-btn" onclick="rateStar(5)"><i class="fas fa-star"></i></button>
+        </div>
+        <textarea id="evalFeedback" placeholder="What parts of our booking widget or interface could we improve?"></textarea>
+        <div class="modal-actions">
+            <button class="btn-primary" style="background:#6B7280;" onclick="closeEvalModal()">Cancel</button>
+            <button class="btn-primary" onclick="submitEval()">Submit</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // System Handlers for Navbar
+    function openmenu() { document.getElementById("sidemenu").classList.add("open"); }
+    function closemenu() { document.getElementById("sidemenu").classList.remove("open"); }
+
+    // Toggle Return Date logic based on selection tab
+    function setTrip(btn, type) {
+        document.querySelectorAll('.widget-tab').forEach(t => t.classList.remove('active'));
+        btn.classList.add('active');
+        const returnGroup = document.getElementById('returnGroup');
+        returnGroup.style.display = (type === 'return') ? 'block' : 'none';
+    }
+
+    // Dynamic Class Selector Mapping from Cards
+    function selectClass(classCode) {
+        document.getElementById('cabinClass').value = classCode;
+        showToast("Selected cabin preference updated above!", "success");
+        document.getElementById('cabinClass').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Flight Search Simulation Generator
+    function searchFlights() {
+        const from = document.getElementById('fromAirport').value;
+        const to = document.getElementById('toDestination').value;
+        const cabinSel = document.getElementById('cabinClass').options[document.getElementById('cabinClass').selectedIndex].text;
+        
+        if(from === to) {
+            showToast("Origin and Destination cannot match.", "error");
+            return;
+        }
+
+        const tableBody = document.getElementById('flightsTableBody');
+        tableBody.innerHTML = `
+            <tr>
+                <td><strong>KQ 102</strong></td>
+                <td>${from} ➔ ${to}</td>
+                <td>08:15 AM</td>
+                <td>${cabinSel}</td>
+                <td><span class="status-badge status-confirmed">Available</span></td>
+            </tr>
+            <tr>
+                <td><strong>KQ 204</strong></td>
+                <td>${from} ➔ ${to}</td>
+                <td>04:45 PM</td>
+                <td>${cabinSel}</td>
+                <td><span class="status-badge status-confirmed">Available</span></td>
+            </tr>
+        `;
+        document.getElementById('resultsSection').classList.add('show');
+        showToast("Displaying real-time schedule matches.", "success");
+        document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Toast Notification System Engine
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        toast.className = `toast show ${type}`;
+        toast.innerHTML = message;
+        setTimeout(() => { toast.classList.remove('show'); }, 4000);
+    }
+
+    // Survey Management Matrix
+    let activeRating = 0;
+    function openEvalModal() { document.getElementById('evalModal').classList.add('open'); }
+    function closeEvalModal() { document.getElementById('evalModal').classList.remove('open'); }
+    
+    function rateStar(rating) {
+        activeRating = rating;
+        const stars = document.querySelectorAll('.star-btn');
+        stars.forEach((star, idx) => {
+            if(idx < rating) star.classList.add('lit');
+            else star.classList.remove('lit');
+        });
+    }
+
+    function submitEval() {
+        if(activeRating === 0) {
+            alert("Please provide a rating before submitting.");
+            return;
+        }
+        showToast("Thank you! Review captured for engineering evaluation.", "success");
+        document.getElementById('evalFeedback').value = "";
+        rateStar(0);
+        closeEvalModal();
+    }
+</script>
+
+</body>
+</html>

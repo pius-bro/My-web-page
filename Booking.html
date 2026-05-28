@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <link rel="stylesheet" href="booking.css">
+</head>
+<body>
+    <div class="Book & manage">
+       <div class="input-booking">
+        <h2>Add Booking</h2>
+        <form action="">
+            <label for="name">Full Name:</label>
+            <input type="text" name="name" id="name" required>
+
+             <label for="travelDate">Travel Date:</label>
+             <input type="date" name="travelDate" id="travelDate" required>
+
+              <label for="class">Select Class:</label>
+    <select name="class" id="class">
+        <option value="A">Class A</option>
+        <option value="B">Class B - Medium</option>
+        <option value="C">Class C - Low</option>
+    </select>
+    
+    <legend>Destination</legend>
+    <label for="from-city">from:</label>
+    <input list="airports" name="from-city" id="from-city" placeholder="City or Airport"required>
+     
+    <label for="to-city">to:</label>
+    <input list="airports" name="to-city" id="to-city" placeholder="City or Airport" required>
+
+    <datalist id="Airports">
+        <option value="JKIA- Paris">
+        <option value="JKIA- Tokyo">
+        <option value="JKIA- New York">
+        <option value="Paris- JKIA">
+        <option value="Tokyo- JKIA">
+        <option value="New York- JKIA">
+    </datalist>
+
+    <fieldset>
+        <legend>Contact Information</legend>
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+        
+        <label for="phone">Phone Number:</label>
+        <input type="tel" name="phone" id="phone" required>
+    </fieldset>
+
+     <fieldset>
+        <legend>Payment Details</legend>
+        <label for="card">Card Number:</label>
+        <input type="tel" name="card-number" id="card" placeholder="1234 5678 9101 1121" inputmode="numeric" required>
+        
+        <label for="expiry">Expiry Date:</label>
+        <input type="text" name="expiry" id="expiry" placeholder="MM/YY" required>
+        
+        <label for="cvv">CVV:</label>
+        <input type="password" name="cvv" id="cvv" maxlength="3" required>
+    </fieldset>
+        <button class="add booking", alt="add booking">Add Booking</button>
+        </form>
+       </div>
+       <div class="input-booking" id="change Booking">
+        <h2> Change Booking</h2>
+        <form action="">
+            <input type="text" name="name" id="name" alt="name" placeholder="First Name" required>
+            <input type="date" date="localDate" required>
+        
+            <input type="text" list="destinations" name="destination" id="destination" placeholder="Destination" required>
+    <datalist id="destinations">
+        <option value="Paris">
+        <option value="Tokyo">
+        <option value="New York">
+    </datalist>
+        
+     <select name="class" id="class">
+        <option value="A">Class A</option>
+        <option value="B">Class B - Medium</option>
+        <option value="C">Class C - Low</option>
+    </select>
+
+        <button class="add booking", alt="add booking">Change Booking</button>
+            
+    </form>
+       </div>
+       <div class="input-booking" id="delete booking">
+        <h2>Delete Booking</h2>
+        <form>
+        <input type="text" name="name" id="name" placeholder="First Name" required>
+        <input type="submit" value="Delete Booking">
+        </form>
+       </div>
+
+    </div>
+    
+</body>
+</html>
