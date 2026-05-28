@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kenya Airways — Sign In</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;}
+  :root{
+    --dark:#00313C; --teal:#006272; --red:#CC0000;
+    --gold:#E8A020; --light:#F4F8F9; --gray:#6B7280; --border:#E5E7EB;
+  }
+  body{
+    font-family:'Jost',sans-serif;
+    min-height:100vh;
+    display:flex;
+    background:var(--dark);
+    overflow:hidden;
+  }
+
+  /* LEFT — decorative panel */
+  .panel-left{
+    flex:1;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding:60px;
+  }
+  .panel-left img.bg{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    filter:brightness(0.4) saturate(0.8);
+  }
+  .panel-left::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to top, rgba(0,49,60,0.95) 0%, rgba(0,49,60,0.3) 60%, transparent 100%);
+  }
+  .panel-text{position:relative;z-index:2;color:#fff;}
+  .panel-text .kq-badge{
+    display:inline-flex;align-items:center;gap:10px;
+    background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);
+    padding:8px 16px;border-radius:30px;margin-bottom:28px;
+    font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+    backdrop-filter:blur(8px);
+  }
+  .panel-text .kq-badge span{
+    width:8px;height:8px;border-radius:50%;background:var(--gold);
+  }
+  .panel-text h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:52px;line-height:1.1;font-weight:600;
+    margin-bottom:16px;
+  }
+  .panel-text h1 em{color:var(--gold);font-style:italic;}
+  .panel-text p{font-size:15px;opacity:.7;line-height:1.7;max-width:380px;}
+  .floating-cards{
+    position:absolute;top:40px;right:40px;z-index:2;
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .f-card{
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:14px;padding:14px 18px;
+    color:#fff;font-size:13px;min-width:200px;
+  }
+  .f-card .fc-label{opacity:.6;font-size:11px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
+  .f-card .fc-val{font-weight:600;font-size:16px;}
+
+  /* RIGHT — auth forms */
+  .panel-right{
+    width:480px;flex-shrink:0;
+    background:#fff;
+    display:flex;flex-direction:column;
+    justify-content:center;
+    padding:60px 52px;
+    position:relative;
+    overflow-y:auto;
+  }
+  .back-link{
+    position:absolute;top:28px;left:52px;
+    display:flex;align-items:center;gap:8px;
+    color:var(--gray);font-size:13px;text-decoration:none;
+    transition:color .2s;
+  }
+  .back-link:hover{color:var(--dark);}
+
+  .form-switch{
+    display:flex;background:var(--light);
+    border-radius:10px;padding:4px;margin-bottom:36px;
+  }
+  .switch-btn{
+    flex:1;padding:10px;border:none;background:transparent;
+    border-radius:8px;font-size:14px;font-weight:500;
+    color:var(--gray);cursor:pointer;font-family:'Jost',sans-serif;
+    transition:all .2s;
+  }
+  .switch-btn.active{background:#fff;color:var(--dark);box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+
+  .auth-form{display:none;}
+  .auth-form.active{display:block;}
+
+  .form-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:32px;font-weight:600;color:var(--dark);margin-bottom:6px;
+  }
+  .form-sub{font-size:14px;color:var(--gray);margin-bottom:32px;line-height:1.5;}
+
+  .field{margin-bottom:18px;}
+  .field label{
+    display:block;font-size:11px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.1em;
+    color:var(--teal);margin-bottom:8px;
+  }
+  .input-wrap{position:relative;}
+  .input-wrap i.icon-left{
+    position:absolute;left:14px;top:50%;transform:translateY(-50%);
+    color:#C4C9D4;font-size:14px;transition:color .2s;
+  }
+  .input-wrap input:focus ~ i.icon-left,
+  .input-wrap input:focus + i { color:var(--teal); }
+  .toggle-pw{
+    position:absolute;right:14px;top:50%;transform:translateY(-50%);
+    background:none;border:none;color:#C4C9D4;cursor:pointer;font-size:14px;
+    transition:color .2s;
+  }
+  .toggle-pw:hover{color:var(--gray);}
+  .field input{
+    width:100%;padding:12px 14px 12px 42px;
+    border:1.5px solid var(--border);border-radius:10px;
+    font-size:14px;font-family:'Jost',sans-serif;color:var(--dark);
+    outline:none;transition:border-color .2s,box-shadow .2s;background:#FAFAFA;
+  }
+  .field input:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,98,114,0.08);background:#fff;}
+  .field input.err{border-color:var(--red);}
+
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+  .forgot{display:block;text-align:right;font-size:12px;color:var(--teal);text-decoration:none;margin-top:-10px;margin-bottom:18px;}
+  .forgot:hover{text-decoration:underline;}
+
+  .btn-auth{
+    width:100%;padding:14px;
+    background:var(--dark);color:#fff;border:none;
+    border-radius:10px;font-size:15px;font-weight:600;
+    font-family:'Jost',sans-serif;cursor:pointer;
+    letter-spacing:.03em;transition:background .2s,transform .1s;
+    margin-top:4px;
+  }
+  .btn-auth:hover{background:var(--teal);}
+  .btn-auth:active{transform:scale(0.99);}
+  .btn-auth:disabled{background:#aaa;cursor:not-allowed;}
+
+  .divider{
+    display:flex;align-items:center;gap:12px;
+    margin:20px 0;font-size:12px;color:var(--border);
+  }
+  .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  .error-box{
+    display:none;background:#FEF2F2;border:1px solid #FECACA;
+    border-radius:8px;padding:10px 14px;font-size:13px;color:#DC2626;
+    margin-bottom:16px;display:none;align-items:center;gap:8px;
+  }
+  .error-box.show{display:flex;}
+  .success-box{
+    display:none;background:#F0FDF4;border:1px solid #BBF7D0;
+    border-radius:8px;padding:10px 14px;font-size:13px;color:#166534;
+    margin-bottom:16px;align-items:center;gap:8px;
+  }
+  .success-box.show{display:flex;}
+
+  .terms-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:18px;}
+  .terms-row input{margin-top:3px;accent-color:var(--teal);}
+  .terms-row label{font-size:12px;color:var(--gray);line-height:1.5;}
+  .terms-row a{color:var(--teal);text-decoration:none;}
+
+  .strength-bar{height:4px;border-radius:2px;background:var(--border);margin-top:6px;overflow:hidden;}
+  .strength-fill{height:100%;border-radius:2px;width:0;transition:width .3s,background .3s;}
+
+  .spinner{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,0.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  @media(max-width:900px){
+    .panel-left{display:none;}
+    .panel-right{width:100%;padding:40px 28px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- LEFT PANEL -->
+<div class="panel-left">
+  <img class="bg" src="hero.jpeg" alt="Kenya Airways" onerror="this.style.display='none'">
+  <div class="floating-cards">
+    <div class="f-card">
+      <div class="fc-label">Destinations</div>
+      <div class="fc-val">50+ Worldwide</div>
+    </div>
+    <div class="f-card">
+      <div class="fc-label">Cabin Classes</div>
+      <div class="fc-val">Executive · Middle · Low</div>
+    </div>
+  </div>
+  <div class="panel-text">
+    <div class="kq-badge"><span></span> Kenya Airways</div>
+    <h1>Your journey<br>starts <em>here.</em></h1>
+    <p>Sign in to book flights, manage your reservations, and explore destinations across 50+ cities worldwide.</p>
+  </div>
+</div>
+
+<!-- RIGHT PANEL -->
+<div class="panel-right">
+  <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to website</a>
+
+  <div class="form-switch">
+    <button class="switch-btn active" id="btnShowLogin" onclick="showForm('login')">Sign In</button>
+    <button class="switch-btn" id="btnShowReg" onclick="showForm('register')">Create Account</button>
+  </div>
+
+  <!-- LOGIN FORM -->
+  <div class="auth-form active" id="formLogin">
+    <h2 class="form-title">Welcome back</h2>
+    <p class="form-sub">Sign in to access your bookings and manage your travel.</p>
+
+    <div class="error-box" id="loginError"><i class="fas fa-exclamation-circle"></i><span id="loginErrorText">Invalid credentials</span></div>
+
+    <div class="field">
+      <label>Email Address</label>
+      <div class="input-wrap">
+        <i class="fas fa-envelope icon-left"></i>
+        <input type="email" id="l_email" placeholder="you@example.com" autocomplete="email">
+      </div>
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <div class="input-wrap">
+        <i class="fas fa-lock icon-left"></i>
+        <input type="password" id="l_password" placeholder="Your password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+        <button type="button" class="toggle-pw" onclick="togglePw('l_password',this)"><i class="fas fa-eye"></i></button>
+      </div>
+    </div>
+    <a href="#" class="forgot">Forgot password?</a>
+    <button class="btn-auth" id="btnLogin" onclick="doLogin()">
+      <i class="fas fa-sign-in-alt"></i> Sign In
+    </button>
+    <div class="divider">or</div>
+    <p style="text-align:center;font-size:13px;color:var(--gray);">
+      Don't have an account? <a href="#" style="color:var(--teal);font-weight:600;" onclick="showForm('register')">Create one</a>
+    </p>
+  </div>
+
+  <!-- REGISTER FORM -->
+  <div class="auth-form" id="formRegister">
+    <h2 class="form-title">Create account</h2>
+    <p class="form-sub">Join thousands of travellers booking with Kenya Airways.</p>
+
+    <div class="error-box"   id="regError"><i class="fas fa-exclamation-circle"></i><span id="regErrorText">Error</span></div>
+    <div class="success-box" id="regSuccess"><i class="fas fa-check-circle"></i><span>Account created! You can now sign in.</span></div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>First Name</label>
+        <div class="input-wrap">
+          <i class="fas fa-user icon-left"></i>
+          <input type="text" id="r_first" placeholder="First name">
+        </div>
+      </div>
+      <div class="field">
+        <label>Last Name</label>
+        <div class="input-wrap">
+          <i class="fas fa-user icon-left"></i>
+          <input type="text" id="r_last" placeholder="Last name">
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Email Address</label>
+      <div class="input-wrap">
+        <i class="fas fa-envelope icon-left"></i>
+        <input type="email" id="r_email" placeholder="you@example.com">
+      </div>
+    </div>
+    <div class="field">
+      <label>Phone Number</label>
+      <div class="input-wrap">
+        <i class="fas fa-phone icon-left"></i>
+        <input type="tel" id="r_phone" placeholder="+254 700 000 000">
+      </div>
+    </div>
+    <div class="field">
+      <label>Password</label>
+      <div class="input-wrap">
+        <i class="fas fa-lock icon-left"></i>
+        <input type="password" id="r_password" placeholder="Min. 6 characters" oninput="checkStrength(this.value)">
+        <button type="button" class="toggle-pw" onclick="togglePw('r_password',this)"><i class="fas fa-eye"></i></button>
+      </div>
+      <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+    </div>
+    <div class="terms-row">
+      <input type="checkbox" id="r_terms">
+      <label for="r_terms">I agree to the <a href="terms.html">Terms and Conditions</a> and <a href="#">Privacy Policy</a></label>
+    </div>
+    <button class="btn-auth" id="btnRegister" onclick="doRegister()">
+      <i class="fas fa-user-plus"></i> Create Account
+    </button>
+    <div class="divider">or</div>
+    <p style="text-align:center;font-size:13px;color:var(--gray);">
+      Already have an account? <a href="#" style="color:var(--teal);font-weight:600;" onclick="showForm('login')">Sign in</a>
+    </p>
+  </div>
+</div>
+
+<script>
+  const API = 'http://localhost:3000/api';
+
+  // If already logged in, go to booking page
+  if (sessionStorage.getItem('kq_user')) {
+    window.location.href = 'index.html';
+  }
+
+  function showForm(which) {
+    document.getElementById('formLogin').classList.toggle('active', which === 'login');
+    document.getElementById('formRegister').classList.toggle('active', which === 'register');
+    document.getElementById('btnShowLogin').classList.toggle('active', which === 'login');
+    document.getElementById('btnShowReg').classList.toggle('active', which === 'register');
+    hideErrors();
+  }
+
+  function hideErrors() {
+    ['loginError','regError','regSuccess'].forEach(id => {
+      document.getElementById(id).classList.remove('show');
+    });
+  }
+
+  function togglePw(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const isText = input.type === 'text';
+    input.type = isText ? 'password' : 'text';
+    btn.querySelector('i').className = isText ? 'fas fa-eye' : 'fas fa-eye-slash';
+  }
+
+  function checkStrength(val) {
+    const fill = document.getElementById('strengthFill');
+    let score = 0;
+    if (val.length >= 6)  score++;
+    if (val.length >= 10) score++;
+    if (/[A-Z]/.test(val)) score++;
+    if (/[0-9]/.test(val)) score++;
+    if (/[^A-Za-z0-9]/.test(val)) score++;
+    const colors = ['#EF4444','#F97316','#EAB308','#22C55E','#16A34A'];
+    fill.style.width  = (score / 5 * 100) + '%';
+    fill.style.background = colors[score - 1] || '#EF4444';
+  }
+
+  function setLoading(btnId, loading, label) {
+    const btn = document.getElementById(btnId);
+    btn.disabled = loading;
+    btn.innerHTML = loading ? '<span class="spinner"></span> Please wait...' : label;
+  }
+
+  async function doLogin() {
+    const email    = document.getElementById('l_email').value.trim();
+    const password = document.getElementById('l_password').value;
+    const errBox   = document.getElementById('loginError');
+    errBox.classList.remove('show');
+
+    if (!email || !password) {
+      document.getElementById('loginErrorText').textContent = 'Please enter your email and password.';
+      errBox.classList.add('show'); return;
+    }
+
+    setLoading('btnLogin', true);
+    const r = await fetch(API + '/user/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    }).then(r => r.json()).catch(() => ({ success: false, message: 'Server offline. Is it running?' }));
+    setLoading('btnLogin', false, '<i class="fas fa-sign-in-alt"></i> Sign In');
+
+    if (r.success) {
+      sessionStorage.setItem('kq_user', JSON.stringify(r.data));
+      // Redirect to booking page or wherever they came from
+      const redirect = sessionStorage.getItem('kq_redirect') || 'index.html';
+      sessionStorage.removeItem('kq_redirect');
+      window.location.href = redirect;
+    } else {
+      document.getElementById('loginErrorText').textContent = r.message;
+      errBox.classList.add('show');
+      document.getElementById('l_password').classList.add('err');
+    }
+  }
+
+  async function doRegister() {
+    const first    = document.getElementById('r_first').value.trim();
+    const last     = document.getElementById('r_last').value.trim();
+    const email    = document.getElementById('r_email').value.trim();
+    const phone    = document.getElementById('r_phone').value.trim();
+    const password = document.getElementById('r_password').value;
+    const terms    = document.getElementById('r_terms').checked;
+    const errBox   = document.getElementById('regError');
+    const sucBox   = document.getElementById('regSuccess');
+    errBox.classList.remove('show'); sucBox.classList.remove('show');
+
+    if (!first || !last || !email || !password) {
+      document.getElementById('regErrorText').textContent = 'Please fill in all required fields.';
+      errBox.classList.add('show'); return;
+    }
+    if (password.length < 6) {
+      document.getElementById('regErrorText').textContent = 'Password must be at least 6 characters.';
+      errBox.classList.add('show'); return;
+    }
+    if (!terms) {
+      document.getElementById('regErrorText').textContent = 'Please accept the terms and conditions.';
+      errBox.classList.add('show'); return;
+    }
+
+    setLoading('btnRegister', true);
+    const r = await fetch(API + '/user/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ first, last, email, phone, password })
+    }).then(r => r.json()).catch(() => ({ success: false, message: 'Server offline. Is it running?' }));
+    setLoading('btnRegister', false, '<i class="fas fa-user-plus"></i> Create Account');
+
+    if (r.success) {
+      sucBox.classList.add('show');
+      setTimeout(() => showForm('login'), 1800);
+    } else {
+      document.getElementById('regErrorText').textContent = r.message;
+      errBox.classList.add('show');
+    }
+  }
+</script>
+</body>
+</html>
