@@ -1,0 +1,188 @@
+{
+  "bookings": [
+    {
+      "id": "KQ-1001",
+      "passengerName": "John Kamau",
+      "passport": "A123456",
+      "from": "Nairobi (NBO)",
+      "to": "London (LHR)",
+      "date": "2026-06-10",
+      "class": "A",
+      "className": "Executive",
+      "pax": 1,
+      "email": "john@example.com",
+      "status": "Confirmed",
+      "createdAt": "2026-05-20T10:00:00.000Z"
+    },
+    {
+      "id": "KQ-1002",
+      "passengerName": "Sarah Odhiambo",
+      "passport": "B789012",
+      "from": "Nairobi (NBO)",
+      "to": "Dubai (DXB)",
+      "date": "2026-06-15",
+      "class": "C",
+      "className": "Low Class",
+      "pax": 2,
+      "email": "sarah@example.com",
+      "status": "Confirmed",
+      "createdAt": "2026-05-21T09:00:00.000Z"
+    },
+    {
+      "id": "KQ-1003",
+      "passengerName": "Pius osiemo",
+      "passport": "A234456",
+      "from": "Nairobi (NBO)",
+      "to": "London (LHR)",
+      "date": "2026-05-27",
+      "class": "A",
+      "className": "Executive",
+      "pax": 1,
+      "email": "osiemoconcepta@gmail.com",
+      "status": "Confirmed",
+      "createdAt": "2026-05-26T11:25:36.277Z"
+    }
+  ],
+  "passengers": [
+    {
+      "id": "P-001",
+      "first": "John",
+      "last": "Kamau",
+      "passport": "A123456",
+      "nationality": "Kenyan",
+      "createdAt": "2026-05-20T10:00:00.000Z"
+    },
+    {
+      "id": "P-002",
+      "first": "Sarah",
+      "last": "Odhiambo",
+      "passport": "B789012",
+      "nationality": "Kenyan",
+      "createdAt": "2026-05-21T09:00:00.000Z"
+    }
+  ],
+  "inquiries": [],
+  "employees": [
+    {
+      "id": "E-001",
+      "name": "Capt. Odhiambo",
+      "role": "Pilot",
+      "flight": "KQ101 — NBO→LHR, 27 May",
+      "shift": "Morning (06:00–14:00)",
+      "status": "Assigned",
+      "assignedAt": "2026-05-20T08:00:00.000Z"
+    },
+    {
+      "id": "E-002",
+      "name": "Amina Wanjiru",
+      "role": "Cabin Crew",
+      "flight": "KQ202 — NBO→DXB, 28 May",
+      "shift": "Afternoon (14:00–22:00)",
+      "status": "Assigned",
+      "assignedAt": "2026-05-20T08:00:00.000Z"
+    },
+    {
+      "id": "E-003",
+      "name": "Pius Atley",
+      "role": "Pilot",
+      "flight": "KQ101 — NBO→LHR, 27 May",
+      "shift": "Morning (06:00–14:00)",
+      "status": "Assigned",
+      "assignedAt": "2026-05-26T11:29:53.893Z"
+    },
+    {
+      "id": "E-004",
+      "name": "Electra Pius",
+      "role": "Ground Staff",
+      "flight": "KQ101 — NBO→LHR, 27 May",
+      "shift": "Morning (06:00–14:00)",
+      "status": "Assigned",
+      "assignedAt": "2026-05-26T11:30:36.451Z"
+    },
+    {
+      "id": "E-005",
+      "name": "2Pac Shakur",
+      "role": "Co-Pilot",
+      "flight": "KQ101 — NBO→LHR, 27 May",
+      "shift": "Morning (06:00–14:00)",
+      "status": "Assigned",
+      "assignedAt": "2026-05-26T11:31:15.748Z"
+    }
+  ],
+  "subscribers": [
+    {
+      "email": "osiemoconcepta@gmail.com",
+      "subscribedAt": "2026-05-26T11:26:22.876Z"
+    }
+  ],
+  "evaluations": [
+    {
+      "id": "EV-1779798202441",
+      "rating": 3,
+      "feedback": "the application form worked well and you need to improve on password update and sending notification to users",
+      "createdAt": "2026-05-26T12:23:22.441Z"
+    }
+  ],
+  "seatCapacity": {
+    "A": {
+      "total": 40,
+      "booked": 29,
+      "nextAvailable": null
+    },
+    "B": {
+      "total": 80,
+      "booked": 80,
+      "nextAvailable": "2026-05-27T10:30:00.000Z"
+    },
+    "C": {
+      "total": 120,
+      "booked": 66,
+      "nextAvailable": null
+    }
+  },
+  "counters": {
+    "booking": 1003,
+    "passenger": 2,
+    "inquiry": 0,
+    "employee": 5,
+    "user": 4
+  },
+  "users": [
+    {
+      "id": "U-0001",
+      "first": "Pius",
+      "last": "Demo",
+      "email": "pius@example.com",
+      "phone": "+254700000001",
+      "password": "user123",
+      "createdAt": "2026-05-26T08:00:00.000Z"
+    },
+    {
+      "id": "U-0002",
+      "first": "Pius",
+      "last": "Osiemo",
+      "email": "osiemoconcepta@gmail.com",
+      "phone": "+254 715928815",
+      "password": "1234567",
+      "createdAt": "2026-05-26T11:22:12.342Z"
+    },
+    {
+      "id": "U-0003",
+      "first": "Atley",
+      "last": "Pac",
+      "email": "atlepac@gmail.com",
+      "phone": "0741559783",
+      "password": "9876543",
+      "createdAt": "2026-05-26T12:16:45.570Z"
+    },
+    {
+      "id": "U-0004",
+      "first": "Tupac",
+      "last": "Shakur",
+      "email": "osiemopius01@gmail.com",
+      "phone": "0114954433",
+      "password": "14954433",
+      "createdAt": "2026-05-26T12:21:01.441Z"
+    }
+  ]
+}
