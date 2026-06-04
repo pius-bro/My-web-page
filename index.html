@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pius — AI/ ML Engineer </title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy:    #0a0e1a;
+      --navy2:   #0f1525;
+      --navy3:   #151d32;
+      --navy4:   #1c2640;
+      --gold:    #c9a84c;
+      --gold2:   #e8c96a;
+      --gold3:   #f5e0a0;
+      --goldglow:rgba(201,168,76,0.18);
+      --text:    #e8e8f0;
+      --muted:   #7a809a;
+      --border:  rgba(201,168,76,0.15);
+      --serif:   'Cormorant Garamond', serif;
+      --sans:    'Outfit', sans-serif;
+      --mono:    'DM Mono', monospace;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--navy);
+      color: var(--text);
+      font-family: var(--sans);
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom cursor */
+    #cursor {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 10px; height: 10px;
+      background: var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      transition: transform 0.1s, opacity 0.2s;
+      transform: translate(-50%, -50%);
+    }
+    #cursor-ring {
+      position: fixed; top: 0; left: 0; z-index: 9998;
+      width: 36px; height: 36px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      pointer-events: none;
+      transition: transform 0.18s ease, width 0.2s, height 0.2s, opacity 0.2s;
+      transform: translate(-50%, -50%);
+      opacity: 0.5;
+    }
+
+    /* Noise overlay */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9000; opacity: 0.4;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 60px;
+      border-bottom: 1px solid transparent;
+      transition: background 0.3s, border-color 0.3s, backdrop-filter 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(10,14,26,0.92);
+      border-color: var(--border);
+      backdrop-filter: blur(16px);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex; gap: 36px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-family: var(--mono);
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1px; background: var(--gold);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.25s;
+    }
+    .nav-links a:hover { color: var(--gold2); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 60px 80px;
+      position: relative;
+      overflow: hidden;
+      background-image: url('pius.jpeg');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+    }
+
+    /* Dark gradient overlay so text is readable */
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        105deg,
+        rgba(8,12,24,0.93) 0%,
+        rgba(8,12,24,0.82) 45%,
+        rgba(8,12,24,0.45) 75%,
+        rgba(8,12,24,0.25) 100%
+      );
+      z-index: 1;
+    }
+
+    /* Gold vignette at bottom */
+    #hero::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 200px;
+      background: linear-gradient(to top, var(--navy), transparent);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      position: absolute; inset: 0; z-index: 2;
+      background-image:
+        linear-gradient(rgba(201,168,76,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201,168,76,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 60% 80% at 20% 50%, black, transparent);
+    }
+
+    .hero-content { position: relative; max-width: 780px; z-index: 3; }
+    .hero-stats { z-index: 3; }
+    .scroll-hint { z-index: 3; }
+
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.2s forwards;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 32px; height: 1px;
+      background: var(--gold);
+    }
+
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(56px, 8vw, 96px);
+      font-weight: 700;
+      line-height: 1;
+      color: var(--text);
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.35s forwards;
+    }
+    .hero-name span { color: var(--gold); font-style: italic; }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 400;
+      font-style: italic;
+      color: var(--muted);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.5s forwards;
+    }
+
+    .hero-bio {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.65s forwards;
+    }
+
+    .hero-actions {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeUp 0.7s 0.8s forwards;
+    }
+
+    .btn-primary {
+      padding: 14px 32px;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none; cursor: none;
+      position: relative; overflow: hidden;
+      transition: transform 0.2s;
+    }
+    .btn-primary::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%);
+      transition: transform 0.3s;
+    }
+    .btn-primary:hover::after { transform: translateX(0); }
+    .btn-primary:hover { transform: translateY(-2px); }
+
+    .btn-outline {
+      padding: 13px 32px;
+      border: 1px solid var(--border);
+      color: var(--gold);
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover {
+      border-color: var(--gold);
+      background: var(--goldglow);
+      transform: translateY(-2px);
+    }
+
+    /* scroll indicator */
+    .scroll-hint {
+      position: absolute; bottom: 40px; left: 60px;
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--mono); font-size: 11px;
+      color: var(--muted); letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0; animation: fadeUp 0.7s 1.1s forwards;
+    }
+    .scroll-line {
+      width: 40px; height: 1px;
+      background: var(--gold);
+      animation: scrollPulse 2s infinite;
+    }
+    @keyframes scrollPulse {
+      0%,100%{ transform: scaleX(1); transform-origin: left }
+      50%{ transform: scaleX(0.4); transform-origin: left }
+    }
+
+    /* stat bar */
+    .hero-stats {
+      position: absolute; right: 60px; bottom: 60px;
+      display: flex; flex-direction: column; gap: 20px;
+      opacity: 0; animation: fadeUp 0.7s 1s forwards;
+    }
+    .stat {
+      text-align: right;
+    }
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 36px; font-weight: 700;
+      color: var(--gold2);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 11px; color: var(--muted);
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: 100px 60px;
+      position: relative;
+    }
+
+    .section-header {
+      display: flex; align-items: center; gap: 20px;
+      margin-bottom: 64px;
+    }
+
+    .section-num {
+      font-family: var(--mono);
+      font-size: 12px; color: var(--gold);
+      letter-spacing: 0.1em;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .section-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+
+    /* ── ABOUT ── */
+    #about { background: var(--navy2); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .about-text p {
+      font-size: 16px; line-height: 1.9;
+      color: var(--muted); margin-bottom: 20px;
+    }
+    .about-text p strong { color: var(--gold2); font-weight: 500; }
+
+    .about-details {
+      display: flex; flex-direction: column; gap: 0;
+      border: 1px solid var(--border);
+    }
+    .detail-row {
+      display: flex; gap: 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-key {
+      width: 140px; padding: 16px 20px;
+      font-family: var(--mono); font-size: 11px;
+      color: var(--gold); text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(201,168,76,0.04);
+      border-right: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .detail-val {
+      padding: 16px 20px;
+      font-size: 14px; color: var(--text);
+    }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--navy); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+
+    .skill-card {
+      background: var(--navy2);
+      padding: 32px 28px;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .skill-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .skill-card:hover { background: var(--navy3); }
+    .skill-card:hover::before { transform: scaleX(1); }
+
+    .skill-icon { font-size: 28px; margin-bottom: 16px; }
+    .skill-name {
+      font-family: var(--serif);
+      font-size: 20px; font-weight: 600;
+      color: var(--gold2);
+      margin-bottom: 12px;
+    }
+    .skill-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: 11px;
+      padding: 4px 10px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--navy2); }
+
+    .projects-list {
+      display: flex; flex-direction: column; gap: 2px;
+      background: var(--border);
+    }
+
+    .project-card {
+      background: var(--navy2);
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      gap: 0;
+      align-items: stretch;
+      transition: background 0.25s;
+      overflow: hidden;
+      position: relative;
+    }
+    .project-card::after {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--gold);
+      transform: scaleY(0);
+      transition: transform 0.3s;
+    }
+    .project-card:hover { background: var(--navy3); }
+    .project-card:hover::after { transform: scaleY(1); }
+
+    .project-num {
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif);
+      font-size: 40px; font-weight: 700;
+      color: rgba(201,168,76,0.12);
+      padding: 32px 20px;
+      border-right: 1px solid var(--border);
+      transition: color 0.3s;
+    }
+    .project-card:hover .project-num { color: rgba(201,168,76,0.3); }
+
+    .project-body { padding: 32px 36px; }
+
+    .project-meta {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 10px;
+    }
+    .project-type {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--gold); letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .project-year {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--muted);
+    }
+
+    .project-title {
+      font-family: var(--serif);
+      font-size: 26px; font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .project-desc {
+      font-size: 15px; line-height: 1.75;
+      color: var(--muted);
+      margin-bottom: 20px;
+      max-width: 600px;
+    }
+
+    .project-tech {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .tech-tag {
+      font-family: var(--mono); font-size: 11px;
+      padding: 4px 12px;
+      background: rgba(201,168,76,0.07);
+      border: 1px solid rgba(201,168,76,0.2);
+      color: var(--gold3);
+      letter-spacing: 0.05em;
+    }
+
+    .project-arrow {
+      display: flex; align-items: center; padding: 32px 36px;
+      border-left: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 24px;
+      transition: color 0.2s, transform 0.2s;
+    }
+    .project-card:hover .project-arrow {
+      color: var(--gold);
+      transform: translateX(4px);
+    }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--navy); }
+
+    .edu-timeline {
+      position: relative;
+      padding-left: 40px;
+    }
+    .edu-timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 8px; bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, var(--gold), transparent);
+    }
+
+    .edu-item {
+      position: relative;
+      margin-bottom: 52px;
+    }
+    .edu-item::before {
+      content: '';
+      position: absolute; left: -44px; top: 8px;
+      width: 10px; height: 10px;
+      border: 2px solid var(--gold);
+      background: var(--navy);
+      border-radius: 50%;
+    }
+
+    .edu-period {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--gold); letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .edu-degree {
+      font-family: var(--serif);
+      font-size: 24px; font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .edu-school {
+      font-size: 15px; color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .edu-courses {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+
+    /* ── CONTACT ── */
+    #contact {
+      background: var(--navy2);
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .contact-left h2 {
+      font-family: var(--serif);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+    .contact-left h2 span { color: var(--gold); font-style: italic; }
+
+    .contact-left p {
+      font-size: 15px; color: var(--muted);
+      line-height: 1.8; margin-bottom: 36px;
+    }
+
+    .contact-links {
+      display: flex; flex-direction: column;
+      gap: 12px; margin-bottom: 0;
+    }
+
+    .contact-card {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 20px;
+      border: 1px solid var(--border);
+      background: var(--navy3);
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .contact-card:hover {
+      border-color: var(--gold);
+      background: var(--goldglow);
+      transform: translateX(4px);
+    }
+    .contact-card .ci { font-size: 20px; flex-shrink: 0; }
+    .contact-card .cinfo { display: flex; flex-direction: column; }
+    .contact-card .clabel {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .contact-card .cval {
+      font-size: 13px; color: var(--gold2);
+    }
+
+    /* ── CONTACT FORM ── */
+    .contact-form {
+      background: var(--navy3);
+      border: 1px solid var(--border);
+      padding: 40px;
+      position: relative;
+    }
+    .contact-form::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2), transparent);
+    }
+
+    .form-title {
+      font-family: var(--serif);
+      font-size: 22px; font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .form-subtitle {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--muted); letter-spacing: 0.08em;
+      margin-bottom: 32px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex; flex-direction: column; gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-family: var(--mono); font-size: 11px;
+      color: var(--gold); letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--sans); font-size: 14px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+      appearance: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px var(--goldglow);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: var(--muted); }
+    .form-group select { cursor: pointer; }
+    .form-group select option { background: var(--navy2); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+
+    .form-submit {
+      width: 100%;
+      padding: 15px;
+      background: var(--gold);
+      color: var(--navy);
+      border: none; cursor: pointer;
+      font-family: var(--mono); font-size: 13px;
+      font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase;
+      position: relative; overflow: hidden;
+      transition: transform 0.15s;
+      margin-top: 4px;
+    }
+    .form-submit:hover { transform: translateY(-2px); }
+    .form-submit:active { transform: translateY(0); }
+
+    #form-success {
+      display: none;
+      text-align: center;
+      padding: 24px;
+      border: 1px solid rgba(201,168,76,0.3);
+      background: var(--goldglow);
+      margin-top: 16px;
+      font-size: 14px; color: var(--gold2);
+      font-family: var(--mono);
+    }
+
+    @media (max-width: 900px) {
+      .contact-layout { grid-template-columns: 1fr; gap: 48px; }
+      .form-row { grid-template-columns: 1fr; }
+      .contact-form { padding: 28px 20px; }
+    }
+
+    /* footer */
+    footer {
+      padding: 28px 60px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    footer p {
+      font-family: var(--mono); font-size: 12px;
+      color: var(--muted);
+    }
+    footer .gold { color: var(--gold); }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1; transform: translateY(0);
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      #hero { padding: 100px 24px 80px; }
+      section { padding: 70px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .skills-grid { grid-template-columns: 1fr; }
+      .project-card { grid-template-columns: 1fr; }
+      .project-num { display: none; }
+      .project-arrow { display: none; }
+      .hero-stats { display: none; }
+      footer { padding: 24px; flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#">P.</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Available for opportunities</div>
+    <h1 class="hero-name">Pius<span>.</span></h1>
+    <p class="hero-title">Data Scientist & Machine Learning Engineer</p>
+    <p class="hero-bio">
+      I build intelligent systems that turn raw data into insight and deploy ML models that solve real-world problems. Specializing in NLP, neural networks, and full-stack data pipelines.
+    </p>
+    <div class="hero-actions">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="#contact" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">3+</div>
+      <div class="stat-label">ML Projects</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">Tech Stacks</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2025</div>
+      <div class="stat-label">Graduating</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span class="scroll-line"></span>
+    scroll to explore
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-num">01</span>
+    <h2 class="section-title">About Me</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I'm <strong>Pius</strong>, a AI and ML Engineer currently studying at
+        <strong>Moi University</strong>, Kenya. My work sits at the intersection of
+        mathematics, computing, and real-world applications of AI.
+      </p>
+      <p>
+        I specialize in building end-to-end machine learning pipelines — from data preprocessing
+        and model training to deployment and HCI interfaces. I'm passionate about
+        <strong>Natural Language Processing</strong>, deep learning, and making AI
+        accessible through well-designed interfaces.
+      </p>
+      <p>
+        My academic background spans <strong>advanced mathematics</strong> (complex analysis,
+        multivariable calculus), <strong>digital electronics</strong>, statistics, and
+        software engineering — giving me a rigorous foundation for technical problem-solving.
+      </p>
+    </div>
+
+    <div class="about-details reveal">
+      <div class="detail-row">
+        <div class="detail-key">Name</div>
+        <div class="detail-val">Pius</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Location</div>
+        <div class="detail-val">Nairobi, Kenya</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">University</div>
+        <div class="detail-val">Moi University</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Focus</div>
+        <div class="detail-val">ML / AI / NLP</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Languages</div>
+        <div class="detail-val">Python, JavaScript, Java</div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-key">Status</div>
+        <div class="detail-val" style="color: var(--gold2);">Open to opportunities ✦</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <span class="section-num">02</span>
+    <h2 class="section-title">Skills & Tools</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">🧠</div>
+      <div class="skill-name">Machine Learning</div>
+      <div class="skill-tags">
+        <span class="tag">TensorFlow</span>
+        <span class="tag">Keras</span>
+        <span class="tag">scikit-learn</span>
+        <span class="tag">PyTorch</span>
+        <span class="tag">Neural Networks</span>
+        <span class="tag">CNNs / RNNs</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Data Science</div>
+      <div class="skill-tags">
+        <span class="tag">Pandas</span>
+        <span class="tag">NumPy</span>
+        <span class="tag">Matplotlib</span>
+        <span class="tag">Seaborn</span>
+        <span class="tag">Statistics</span>
+        <span class="tag">ANOVA</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">💬</div>
+      <div class="skill-name">NLP</div>
+      <div class="skill-tags">
+        <span class="tag">Transformers</span>
+        <span class="tag">Claude API</span>
+        <span class="tag">Text Generation</span>
+        <span class="tag">Tokenization</span>
+        <span class="tag">Sentiment Analysis</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">🌐</div>
+      <div class="skill-name">Web & HCI</div>
+      <div class="skill-tags">
+        <span class="tag">HTML / CSS</span>
+        <span class="tag">JavaScript</span>
+        <span class="tag">Node.js</span>
+        <span class="tag">Express</span>
+        <span class="tag">REST APIs</span>
+        <span class="tag">UI Design</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">⚡</div>
+      <div class="skill-name">Electronics & Systems</div>
+      <div class="skill-tags">
+        <span class="tag">Digital Logic</span>
+        <span class="tag">DACs / ADCs</span>
+        <span class="tag">Flip-Flops</span>
+        <span class="tag">Multiplexers</span>
+        <span class="tag">Logic Circuits</span>
+      </div>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-icon">∑</div>
+      <div class="skill-name">Mathematics</div>
+      <div class="skill-tags">
+        <span class="tag">Complex Analysis</span>
+        <span class="tag">Calculus</span>
+        <span class="tag">Linear Algebra</span>
+        <span class="tag">Statistics</span>
+        <span class="tag">Optimization</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header reveal">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="projects-list">
+
+    <div class="project-card reveal">
+      <div class="project-num">01</div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="project-type">NLP · AI</span>
+          <span class="project-year">2025</span>
+        </div>
+        <h3 class="project-title">NLP Chatbot with Claude API</h3>
+        <p class="project-desc">
+          A fully deployed conversational AI chatbot built with Natural Language Processing. Features a polished dark-themed HCI interface, real-time message streaming, conversation memory, and a Node.js/Express backend integrated with Anthropic's Claude language model. Runs locally and is deployable to the web.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">Express</span>
+          <span class="tech-tag">Claude API</span>
+          <span class="tech-tag">HTML/CSS/JS</span>
+          <span class="tech-tag">NLP</span>
+          <span class="tech-tag">REST API</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">02</div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="project-type">Deep Learning · Data Science</span>
+          <span class="project-year">2025</span>
+        </div>
+        <h3 class="project-title">Neural Network Weather Prediction Model</h3>
+        <p class="project-desc">
+          Designed and trained a deep neural network in TensorFlow/Keras on a real-world weather dataset for classification and regression tasks. Engineered a complete preprocessing pipeline — handling missing values, feature scaling, and label encoding — and tuned loss functions, optimizers, and layer architecture for optimal performance.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">TensorFlow</span>
+          <span class="tech-tag">Keras</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Pandas</span>
+          <span class="tech-tag">NumPy</span>
+          <span class="tech-tag">Data Preprocessing</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">03</div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="project-type">HCI · Web Development</span>
+          <span class="project-year">2024</span>
+        </div>
+        <h3 class="project-title">Human-Computer Interaction Web Applications</h3>
+        <p class="project-desc">
+          Designed and built interactive web interfaces applying HCI principles — focusing on usability, accessibility, responsive layouts, and intuitive user flows. Projects involved front-end engineering with modern CSS, JavaScript interactivity, and user-centered design methodology from wireframes to deployed interfaces.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">HTML5</span>
+          <span class="tech-tag">CSS3</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">UX Design</span>
+          <span class="tech-tag">Responsive Design</span>
+          <span class="tech-tag">Accessibility</span>
+        </div>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-header reveal">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Education</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="edu-timeline">
+    <div class="edu-item reveal">
+      <div class="edu-period">2022 — Present</div>
+      <div class="edu-degree">Bachelor of Science</div>
+      <div class="edu-school">Moi University, Eldoret, Kenya</div>
+      <div class="edu-courses">
+        <span class="tag">Machine Learning</span>
+        <span class="tag">Advanced Calculus</span>
+        <span class="tag">Complex Analysis</span>
+        <span class="tag">Digital Electronics</span>
+        <span class="tag">Statistics & Experiments</span>
+        <span class="tag">HCI</span>
+        <span class="tag">Data Structures</span>
+        <span class="tag">Linear Algebra</span>
+      </div>
+    </div>
+
+    <div class="edu-item reveal">
+      <div class="edu-period">Self-directed Learning</div>
+      <div class="edu-degree">AI & Machine Learning</div>
+      <div class="edu-school">Online Courses & Practice Projects</div>
+      <div class="edu-courses">
+        <span class="tag">Deep Learning (Coursera)</span>
+        <span class="tag">TensorFlow Certification</span>
+        <span class="tag">NLP Specialization</span>
+        <span class="tag">Claude API Development</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Contact Me</h2>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="contact-layout">
+    <!-- Left: info -->
+    <div class="reveal">
+      <h2 class="contact-left"><h2>Let's <span style="color:var(--gold);font-style:italic">work</span><br>together.</h2></h2>
+      <p style="font-size:15px;color:var(--muted);line-height:1.8;margin-bottom:36px;">
+        I'm open to internships, freelance projects, research collaborations, and full-time roles in data science and ML. Fill in the form or reach me directly below.
+      </p>
+
+      <div class="contact-links">
+        <a href="mailto:osiemoconcepta@gmail.com" class="contact-card">
+          <span class="ci">✉️</span>
+          <div class="cinfo">
+            <span class="clabel">Email</span>
+            <span class="cval">osiemoconcepta@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://github.com/pius-bro" target="_blank" class="contact-card">
+          <span class="ci">🐙</span>
+          <div class="cinfo">
+            <span class="clabel">GitHub</span>
+            <span class="cval">github.com/pius-bro</span>
+          </div>
+        </a>
+        <a href="https://linkedin.com/in/pius osiemo" target="_blank" class="contact-card">
+          <span class="ci">💼</span>
+          <div class="cinfo">
+            <span class="clabel">LinkedIn</span>
+            <span class="cval">linkedin.com/in/pius osiemo</span>
+          </div>
+        </a>
+        <a href="https://maps.google.com/?q=Nairobi,Kenya" target="_blank" class="contact-card">
+          <span class="ci">📍</span>
+          <div class="cinfo">
+            <span class="clabel">Location</span>
+            <span class="cval">Nairobi, Kenya</span>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: form -->
+    <div class="contact-form reveal">
+      <div class="form-title">Send a Message</div>
+      <div class="form-subtitle">⟶ Responses go directly to Google Forms</div>
+
+      <!--
+        ══════════════════════════════════════════════════════════
+        HOW TO CONNECT TO GOOGLE FORMS (read before deploying):
+
+        1. Go to https://forms.google.com → Create a new form
+        2. Add fields: Name, Email, Subject, Message (use "Short answer" / "Paragraph")
+        3. Click the 3-dot menu → "Get pre-filled link"
+        4. Fill each field with a dummy value → click "Get link"
+        5. Copy the URL. It looks like:
+           https://docs.google.com/forms/d/e/XXXXXXXX/viewform?usp=pp_url
+             &entry.123456789=Name+Here
+             &entry.987654321=email%40here.com
+             ...
+        6. Replace FORM_ACTION_URL below with your form's action URL:
+           Change /viewform to /formResponse in the URL
+        7. Replace each entry.XXXXXXXXX with your actual field entry IDs
+        ══════════════════════════════════════════════════════════
+      -->
+
+      <form id="contactForm"
+            action="https://docs.google.com/forms/d/e/1FAIpQLSeifKdwPVbZBmmpRVDaPslxsUYyi6-Y7TwDogfDZvtDFuYyCQ/formResponse"
+            method="POST"
+            target="hidden_iframe"
+            onsubmit="handleSubmit()">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fname">Full Name</label>
+            <!-- Replace entry.XXXXXXXXX with your Google Form entry ID for Name -->
+            <input type="text" id="fname" name="entry.1578646280"
+                   placeholder="Atley Pius" required />
+          </div>
+          <div class="form-group">
+            <label for="femail">Email Address</label>
+            <!-- Replace entry.XXXXXXXXX with your Google Form entry ID for Email -->
+            <input type="email" id="femail" name="entry.1938017020"
+                   placeholder="tupac@email.com" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="fsubject">Subject</label>
+          <!-- Replace entry.XXXXXXXXX with your Google Form entry ID for Subject -->
+          <select id="fsubject" name="entry.1704208518" required>
+            <option value="" disabled selected>Select a topic…</option>
+            <option value="Internship Opportunity">Internship Opportunity</option>
+            <option value="Freelance Project">Freelance Project</option>
+            <option value="Research Collaboration">Research Collaboration</option>
+            <option value="Full-time Role">Full-time Role</option>
+            <option value="General Enquiry">General Enquiry</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="fmessage">Message</label>
+          <!-- Replace entry.XXXXXXXXX with your Google Form entry ID for Message -->
+          <textarea id="fmessage" name="entry.1213139972"
+                    placeholder="Tell me about your project or opportunity…"
+                    required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">Send Message →</button>
+      </form>
+
+      <!-- Hidden iframe absorbs Google Forms redirect -->
+      <iframe name="hidden_iframe" style="display:none;"></iframe>
+
+      <div id="form-success">
+        ✦ Message sent successfully! I'll get back to you soon.
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2025 <span class="gold">Pius</span> — Data Scientist & ML Engineer</p>
+  <p>Built with precision · Nairobi, Kenya</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      ring.style.width = '56px'; ring.style.height = '56px';
+      ring.style.opacity = '0.8';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.width = '36px'; ring.style.height = '36px';
+      ring.style.opacity = '0.5';
+    });
+  });
+
+  // Form submit handler
+  function handleSubmit() {
+    setTimeout(() => {
+      document.getElementById('contactForm').reset();
+      document.getElementById('form-success').style.display = 'block';
+      setTimeout(() => {
+        document.getElementById('form-success').style.display = 'none';
+      }, 5000);
+    }, 800);
+  }
+
+  // Navbar scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        // stagger children
+        e.target.querySelectorAll && [...e.target.querySelectorAll('.reveal')].forEach((c,i) => {
+          setTimeout(() => c.classList.add('visible'), i * 80);
+        });
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
